@@ -7,7 +7,8 @@ import { WelcomeComponent } from "./welcome/welcome.component";
 const routes: Routes = [
   {path:'', redirectTo:'/welcome', pathMatch:'full'},
   {path:'welcome', component: WelcomeComponent},
-  {path:'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)}
+  {path:'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)},
+  {path:'details/:id', loadChildren: () => import('./product-details/product-details.module').then(m => m.ProductDetailsModule)},
 ];
 
 @NgModule({

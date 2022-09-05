@@ -11,7 +11,7 @@ import { ProductsModule } from "./products.module";
 export class ProductsComponent implements OnInit {
 
   productsData = ProductsData;
-  displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total'];
+  displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total', 'delete', 'details'];
   displayedFooter: string[] = ['totalSum1', 'totalSum2'];
 
 
