@@ -1,0 +1,81 @@
+h1 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  margin: 20px;
+}
+
+button {
+  margin: 20px;
+}
+
+button.addProd {
+  box-sizing: border-box;
+
+  width: 342px;
+  height: 49px;
+
+  background: #FC4C00;
+  border: 1px solid #000000;
+  border-radius: 10px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+button.icon {
+  //position: relative;
+  border: none;
+  background: none;
+}
+
+.mat-icon {
+  transform: scale(2);
+  height: 24px;
+  width: 24px;
+}
+
+.mat-table {
+  width: 90%;
+  margin: 10px 40px;
+  border: solid 1px black;
+}
+
+.mat-header-cell {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  color: black;
+  border: solid 1px black;
+  text-align: center;
+}
+
+.mat-cell {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  border: solid 1px black;
+  text-align: center;
+}
+
+.mat-footer-cell {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  border: solid 1px black;
+}

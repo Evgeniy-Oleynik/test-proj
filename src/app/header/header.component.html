@@ -1,0 +1,12 @@
+<div style="padding: 16px 0px">
+  <a class="logo" routerLink="/welcome">Logo</a>
+  <button class="menu" [matMenuTriggerFor]="routingMenu"><mat-icon>menu</mat-icon></button>
+  <mat-menu #routingMenu="matMenu">
+    <nav class="list">
+      <a class="listItem" mat-menu-item routerLink="/products">Products</a>
+      <a class="listItem" mat-menu-item routerLink="/orders">Orders</a>
+    </nav>
+  </mat-menu>
+  <hr class="line">
+</div>
+
