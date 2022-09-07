@@ -1,5 +1,41 @@
-<button class="back" (click)="goBack()"><mat-icon>keyboard_backspace</mat-icon></button>
-<h1>Product details</h1>
 <div>
+  <button class="back" (click)="goBack()"><mat-icon>keyboard_backspace</mat-icon></button>
+</div>
 
+<div>
+  <h1>Product details</h1>
+</div>
+
+<div>
+  <form [formGroup]="productDetailsForm">
+        <div>
+          <label for="name">Name: </label>
+          <input id="name" type="text" formControlName="name"
+                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.name">
+        </div>
+        <div>
+          <label for="description">Description: </label>
+        </div>
+        <div>
+          <input id="description" type="text" formControlName="description"
+                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.description">
+        </div>
+        <div>
+          <label for="price">Price: </label>
+          <input id="price" type="text" formControlName="price"
+                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.price">
+        </div>
+        <div>
+          <label for="count">Count: </label>
+          <input id="count" type="text" formControlName="count"
+                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.count">
+        </div>
+        <div *ngIf="!isEditable">
+          <button class="edit" (click)="toggleEdit()">Edit</button>
+        </div>
+        <div *ngIf="isEditable">
+          <button class="edit" (click)="cancel()">Cancel</button>
+          <button class="edit" (click)="save()">Save changes</button>
+        </div>
+  </form>
 </div>

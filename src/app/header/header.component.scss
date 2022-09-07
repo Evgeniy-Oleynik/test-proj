@@ -1,5 +1,10 @@
+div {
+  padding: 16px 0px;
+  display: flex;
+}
+
 .logo {
-  padding: 16px 53px;
+  padding: 0px 53px;
   width: 149px;
   height: 31px;
   //position: absolute;
@@ -51,3 +56,4 @@
   top: 54px;
   border: 1px solid black;
 }
+

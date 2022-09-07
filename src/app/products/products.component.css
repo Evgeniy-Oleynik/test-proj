@@ -1,11 +1,10 @@
 div {
   display: flex;
   padding: 10px;
-
 }
 
 h1 {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 36px;
@@ -18,42 +17,34 @@ button {
   margin: 20px;
   background: none;
   border: none;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.addProd {
-    box-sizing: border-box;
-    width: 342px;
-    height: 49px;
-    background: #FC4C00;
-    border: 1px solid #000000;
-    border-radius: 10px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
-    align-items: center;
-    text-align: center;
-    color: white;
-  }
-
-  &.details {
-    margin: 0px;
-  }
-  &.delete {
-    //transform: scale(1.5)
-  }
-
-  .mat-icon {
-    transform: scale(2);
-    height: 24px;
-    width: 24px;
-    color: black;
-  }
+}
+button:hover {
+  cursor: pointer;
+}
+button.addProd {
+  box-sizing: border-box;
+  width: 342px;
+  height: 49px;
+  background: #FC4C00;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+button.details {
+  margin: 0px;
+}
+button .mat-icon {
+  transform: scale(2);
+  height: 24px;
+  width: 24px;
+  color: black;
 }
 
 .mat-table {
@@ -63,7 +54,7 @@ button {
 }
 
 .mat-header-cell {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
@@ -74,7 +65,7 @@ button {
 }
 
 .mat-cell {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
@@ -84,10 +75,12 @@ button {
 }
 
 .mat-footer-cell {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
   border: solid 1px black;
 }
+
+/*# sourceMappingURL=products.component.css.map */
