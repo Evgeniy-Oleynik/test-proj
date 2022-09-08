@@ -23,11 +23,12 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productsData = this.getProducts();
+    this.getProducts();
   }
 
   getProducts() {
-    return this.productsService.getProducts();
+    this.productsService.getProducts()
+      .subscribe(products => this.productsData = products);
   }
 
   getTotalSum() {
@@ -39,8 +40,8 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/details', product.id]);
   }
 
-  deleteProduct(product: Product): void {
-    this.productsService.deleteProduct(product);
+  deleteProduct(id: number): void {
+    this.productsService.deleteProduct(id);
     this.ngOnInit();
   }
 

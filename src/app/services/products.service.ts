@@ -3,16 +3,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterStateSnapshot, ActivatedRoute } from "@angular/router";
 import {Product} from "../interfaces/product-interface";
 import {ProductsData} from "../mock-data";
+import {Observable, of} from "rxjs";
+import { InMemoryDataService } from "../in-memory-data.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
+  private productsUrl = 'api/productsData'
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   selectedProduct: Product | undefined;
   isEditable: boolean = false;
   nextProduct: Product = {
-    id: ProductsData.length + 1,
+    id: NaN,
     name: `New Product`,
     description: '',
     price: 0,
@@ -21,18 +28,19 @@ export class ProductsService {
 
   constructor(
     private route: ActivatedRoute,
-    // private http: HttpClient,
+    private http: HttpClient,
     private router: Router,
   ) { }
 
-  productsData: Product[] = ProductsData;
-
-  getProducts(): Product[] {
-    return this.productsData;
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.productsUrl)
+    // const products = of(ProductsData)
+    // return products;
   }
 
-  getProduct(id: number): Product {
-    return this.productsData[id];
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.productsUrl}/${id}`);
+    // return this.productsData[id];
   }
 
   newProduct(): void {
@@ -40,19 +48,23 @@ export class ProductsService {
     this.router.navigate(['/details', this.selectedProduct.id]);
   }
 
-  updateProduct(product: Product): void {
-    console.log(ProductsData[product.id - 1]);
-    console.log(product);
-    ProductsData.push(product);
-    console.log(ProductsData[product.id - 1]);
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.productsUrl, product, this.httpOptions);
   }
 
-  deleteProduct(product: Product): void {
-    ProductsData.splice(product.id - 1, 1);
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(this.productsUrl, product, this.httpOptions);
+    // console.log(ProductsData[product.id - 1]);
+    // console.log(product);
+    // ProductsData.push(product);
+    // console.log(ProductsData[product.id - 1]);
   }
 
-  toggleEdit() {
-    this.isEditable = !this.isEditable;
+  deleteProduct(id: number): Observable<Product> {
+    return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions)
+    // ProductsData.splice(product.id - 1, 1);
   }
+
+
 
 }

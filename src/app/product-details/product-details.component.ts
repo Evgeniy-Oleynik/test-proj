@@ -14,7 +14,7 @@ import { ActivatedRoute } from "@angular/router";
 export class ProductDetailsComponent implements OnInit {
 
   isEditable: boolean = false;
-  selectedProduct: Product = this.getProduct();
+  selectedProduct: Product | undefined;
 
   constructor(
     private location: Location,
@@ -24,18 +24,19 @@ export class ProductDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.selectedProduct = this.getProduct();
+    this.getProduct();
   }
 
-  getProduct(): Product {
+  getProduct(): void {
     const id = parseInt(<string>this.route.snapshot.paramMap.get('id'));
     // console.log(id);
-    if (id===this.productsService.nextProduct.id) {
+    if (isNaN(id)) {
       this.toggleEdit();
-      return this.productsService.nextProduct;
+      this.selectedProduct = this.productsService.nextProduct;
     }
     else {
-      return this.productsService.getProduct(id-1);
+      this.productsService.getProduct(id)
+        .subscribe(product => this.selectedProduct = product);
     }
   }
 
@@ -53,8 +54,17 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   save() {
-    this.productsService.updateProduct(this.selectedProduct);
-    this.toggleEdit();
+    if (this.selectedProduct) {
+      const id = parseInt(<string>this.route.snapshot.paramMap.get('id'));
+      if (isNaN(id)) {
+        this.productsService.addProduct(this.selectedProduct);
+      }
+      else {
+        this.productsService.updateProduct(this.selectedProduct);
+      }
+      this.toggleEdit();
+    }
+    // this.productsService.updateProduct(this.selectedProduct);
   }
 
   productDetailsForm = this.formBuilder.group({
