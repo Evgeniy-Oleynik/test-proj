@@ -44,7 +44,10 @@ export class ProductsService {
   }
 
   newProduct(): void {
-    this.selectedProduct = this.nextProduct;
+    this.selectedProduct = { id: NaN, name: `New Product`, description: '', price: 0, count: 0,}
+    // this.selectedProduct = {...this.nextProduct};
+    // console.log(this.selectedProduct);
+    // console.log(this.nextProduct);
     this.router.navigate(['/details', this.selectedProduct.id]);
   }
 
@@ -54,17 +57,12 @@ export class ProductsService {
 
   updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(this.productsUrl, product, this.httpOptions);
-    // console.log(ProductsData[product.id - 1]);
-    // console.log(product);
     // ProductsData.push(product);
-    // console.log(ProductsData[product.id - 1]);
   }
 
   deleteProduct(id: number): Observable<Product> {
-    return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions)
+    return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions);
     // ProductsData.splice(product.id - 1, 1);
   }
-
-
 
 }

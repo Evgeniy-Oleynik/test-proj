@@ -41,7 +41,7 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number): void {
-    this.productsService.deleteProduct(id);
+    this.productsService.deleteProduct(id).subscribe();
     this.ngOnInit();
   }
 

@@ -57,12 +57,14 @@ export class ProductDetailsComponent implements OnInit {
     if (this.selectedProduct) {
       const id = parseInt(<string>this.route.snapshot.paramMap.get('id'));
       if (isNaN(id)) {
-        this.productsService.addProduct(this.selectedProduct);
+        this.productsService.addProduct(this.selectedProduct).subscribe();
       }
       else {
-        this.productsService.updateProduct(this.selectedProduct);
+        this.productsService.updateProduct(this.selectedProduct).subscribe();
       }
-      this.toggleEdit();
+      this.goBack();
+      // this.toggleEdit();
+      // this.ngOnInit();
     }
     // this.productsService.updateProduct(this.selectedProduct);
   }
