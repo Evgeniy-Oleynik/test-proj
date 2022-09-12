@@ -1,0 +1,39 @@
+button {
+  //margin: 20px;
+  background: none;
+  border: none;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  text-align: center;
+  color: black;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.menu {
+    margin: 0;
+    padding-right: 33px;
+  }
+
+  &.orange {
+    margin: 20px;
+    box-sizing: border-box;
+    width: 342px;
+    height: 54px;
+    background: #FC4C00;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    color: white;
+  }
+}
+
+mat-icon {
+  transform: scale(2);
+  color: black;
+}
+
+

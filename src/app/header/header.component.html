@@ -1,9 +1,14 @@
-<div>
-  <a class="logo" routerLink="/welcome">Logo</a>
-  <button class="menu" [matMenuTriggerFor]="routingMenu"><mat-icon>menu</mat-icon></button>
-  <mat-menu #routingMenu="matMenu">
-      <a class="listItem" mat-menu-item routerLink="/products">Products</a>
-      <a class="listItem" mat-menu-item routerLink="/orders">Orders</a>
-  </mat-menu>
-  <hr class="line">
+<div class="header">
+  <div class="w50 jl">
+    <a class="logo" routerLink="/welcome">Logo</a>
+  </div>
+  <div class="w50 jr">
+    <button class="menu" [matMenuTriggerFor]="routingMenu"><mat-icon>menu</mat-icon></button>
+    <mat-menu #routingMenu="matMenu" xPosition="before">
+      <a class="menuItem" mat-menu-item routerLink="/products">Products</a>
+      <a class="menuItem" mat-menu-item routerLink="/orders">Orders</a>
+    </mat-menu>
+  </div>
+
+<!--  <hr class="line">-->
 </div>

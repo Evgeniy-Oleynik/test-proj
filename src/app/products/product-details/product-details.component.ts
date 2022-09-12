@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormBuilder } from "@angular/forms";
-import { ProductsService } from "../services/products.service";
-import {Product} from "../interfaces/product-interface";
+import { ProductsService } from "../../services/products.service";
+import {Product} from "../../interfaces/product-interface";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -14,25 +13,26 @@ import { ActivatedRoute } from "@angular/router";
 export class ProductDetailsComponent implements OnInit {
 
   isEditable: boolean = false;
-  selectedProduct: Product | undefined;
+  selectedProduct!: Product;
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.getProduct();
+    // this.getProduct();
+    this.activatedRoute.data.subscribe(({product}) => this.selectedProduct = product);
   }
 
   getProduct(): void {
-    const id = parseInt(<string>this.route.snapshot.paramMap.get('id'));
+    const id = parseInt(<string>this.activatedRoute.snapshot.paramMap.get('id'));
     // console.log(id);
     if (isNaN(id)) {
       this.toggleEdit();
-      this.selectedProduct = this.productsService.nextProduct;
+      this.selectedProduct = {...this.productsService.nextProduct};
     }
     else {
       this.productsService.getProduct(id)
@@ -55,7 +55,7 @@ export class ProductDetailsComponent implements OnInit {
 
   save() {
     if (this.selectedProduct) {
-      const id = parseInt(<string>this.route.snapshot.paramMap.get('id'));
+      const id = parseInt(<string>this.activatedRoute.snapshot.paramMap.get('id'));
       if (isNaN(id)) {
         this.productsService.addProduct(this.selectedProduct).subscribe();
       }

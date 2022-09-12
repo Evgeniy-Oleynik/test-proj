@@ -117,40 +117,31 @@ h1 {
   margin: 20px 0px;
 }
 
-.mat-table {
-  width: 90%;
-  margin: 10px 40px;
-  border: solid 1px black;
+div.header {
+  border-bottom: solid 2px black;
 }
 
-.mat-header-cell {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 29px;
+a {
   color: black;
-  border: solid 1px black;
-  text-align: center;
+  text-decoration: none;
 }
-
-.mat-cell {
-  font-family: "Inter";
+a.logo {
+  padding: 0px 33px;
+  width: 149px;
+  height: 31px;
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
-  border: solid 1px black;
-  text-align: center;
 }
-
-.mat-footer-cell {
-  font-family: "Inter";
+a.menuItem {
+  font-family: Inter;
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
-  border: solid 1px black;
+  padding: 0px 40px;
 }
 
-/*# sourceMappingURL=products.component.css.map */
+/*# sourceMappingURL=header.component.css.map */

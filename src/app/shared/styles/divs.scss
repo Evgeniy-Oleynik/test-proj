@@ -1,0 +1,31 @@
+div {
+  display: flex;
+  padding: 10px;
+  align-items: baseline;
+
+  &.w50 {
+    width: 50%;
+  }
+  &.w33 {
+    width: 33%;
+  }
+  &.w25 {
+    width: 25%;
+  }
+
+  &.jl {
+    justify-content: flex-start;
+  }
+  &.jc {
+    justify-content: center;
+  }
+  &.jr {
+    justify-content: flex-end;
+  }
+  &.jsa {
+    justify-content: space-around;
+  }
+  &.jsb {
+    justify-content: space-between;
+  }
+}

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterStateSnapshot, ActivatedRoute } from "@angular/router";
-import {Product} from "../interfaces/product-interface";
-import {ProductsData} from "../mock-data";
-import {Observable, of} from "rxjs";
-import { InMemoryDataService } from "../in-memory-data.service";
+import { Product } from "../interfaces/product-interface";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,7 @@ export class ProductsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  selectedProduct: Product | undefined;
+  selectedProduct!: Product;
   isEditable: boolean = false;
   nextProduct: Product = {
     id: NaN,
@@ -44,11 +42,11 @@ export class ProductsService {
   }
 
   newProduct(): void {
-    this.selectedProduct = { id: NaN, name: `New Product`, description: '', price: 0, count: 0,}
+    // this.selectedProduct = { id: NaN, name: `New Product`, description: '', price: 0, count: 0,}
     // this.selectedProduct = {...this.nextProduct};
     // console.log(this.selectedProduct);
     // console.log(this.nextProduct);
-    this.router.navigate(['/details', this.selectedProduct.id]);
+    this.router.navigate(['/details', NaN]);
   }
 
   addProduct(product: Product): Observable<Product> {

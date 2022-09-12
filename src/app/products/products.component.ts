@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { Product } from "../interfaces/product-interface";
-import { ProductsData } from "../mock-data";
 import { ProductsService } from "../services/products.service";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-products',
@@ -12,7 +11,7 @@ import { Router } from "@angular/router";
 export class ProductsComponent implements OnInit {
 
   // productsData: Product[] = ProductsData;
-  productsData: Product[] = [];
+  productsData!: Product[];
 
   displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total', 'delete', 'details'];
   displayedFooter: string[] = ['totalSum1', 'totalSum2'];
@@ -20,10 +19,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.getProducts();
+    // this.getProducts();
+    this.activatedRoute.data.subscribe(({products}) => this.productsData = products);
   }
 
   getProducts() {
@@ -37,12 +38,12 @@ export class ProductsComponent implements OnInit {
 
   goDetails(product: Product): void {
     this.productsService.selectedProduct = product;
-    this.router.navigate(['/details', product.id]);
+    this.router.navigate(['products', product.id]);
   }
 
   deleteProduct(id: number): void {
     this.productsService.deleteProduct(id).subscribe();
-    this.ngOnInit();
+    this.getProducts();
   }
 
   newProduct(): void {

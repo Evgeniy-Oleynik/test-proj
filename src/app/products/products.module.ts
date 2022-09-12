@@ -1,16 +1,13 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { ProductsComponent } from "./products.component";
 import { ProductsRoutingModule } from "./products-routing.module";
-import { MatTableModule } from "@angular/material/table";
-import { MatIconModule } from "@angular/material/icon";
+
+import { SharedModule } from "../shared/modules/shared.module";
 
 @NgModule({
   imports: [
-    CommonModule,
     ProductsRoutingModule,
-    MatTableModule,
-    MatIconModule,
+    SharedModule,
   ],
   declarations: [ProductsComponent]
 })

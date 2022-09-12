@@ -1,8 +1,8 @@
 <div>
-  <button class="back" (click)="goBack()"><mat-icon>keyboard_backspace</mat-icon></button>
+  <button class="m20" (click)="goBack()"><mat-icon>keyboard_backspace</mat-icon></button>
 </div>
 
-<div>
+<div class="m20">
   <h1>Product details</h1>
 </div>
 
@@ -10,7 +10,7 @@
   <h1>Loading Data</h1>
 </div>
 
-<div *ngIf="selectedProduct">
+<div *ngIf="selectedProduct" class="m20">
   <form [formGroup]="productDetailsForm">
         <div>
           <label for="name">Name: </label>
@@ -35,11 +35,11 @@
                  [readonly]="!isEditable" [(ngModel)]="selectedProduct.count">
         </div>
         <div *ngIf="!isEditable">
-          <button class="edit" (click)="toggleEdit()">Edit</button>
+          <button class="orange" (click)="toggleEdit()">Edit</button>
         </div>
         <div *ngIf="isEditable">
-          <button class="edit" (click)="cancel()">Cancel</button>
-          <button class="edit" (click)="save()">Save changes</button>
+          <button class="orange" (click)="cancel()">Cancel</button>
+          <button class="orange" (click)="save()">Save changes</button>
         </div>
   </form>
 </div>
