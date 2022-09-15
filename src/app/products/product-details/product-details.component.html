@@ -26,12 +26,12 @@
         </div>
         <div>
           <label for="price">Price: </label>
-          <input id="price" type="text" formControlName="price"
+          <input id="price" type="number" formControlName="price"
                  [readonly]="!isEditable" [(ngModel)]="selectedProduct.price">
         </div>
         <div>
           <label for="count">Count: </label>
-          <input id="count" type="text" formControlName="count"
+          <input id="count" type="number" formControlName="count"
                  [readonly]="!isEditable" [(ngModel)]="selectedProduct.count">
         </div>
         <div *ngIf="!isEditable">

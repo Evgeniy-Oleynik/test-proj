@@ -12,8 +12,7 @@ const routes: Routes = [
   {path:'welcome', component: WelcomeComponent},
   {
     path:'products',
-    loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
-    resolve: {products: ProductsResolverService}
+    loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {path:'**', component: PageNotFoundComponent},
 ];

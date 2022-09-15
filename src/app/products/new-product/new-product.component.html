@@ -1,0 +1,34 @@
+<div>
+  <button class="m20" (click)="goBack()"><mat-icon>keyboard_backspace</mat-icon></button>
+</div>
+
+<div class="m20">
+  <h1>Product details</h1>
+</div>
+
+<div class="m20">
+  <form [formGroup]="newProductForm">
+    <div>
+      <label for="name">Name: </label>
+      <input id="name" type="text" formControlName="name" [(ngModel)]="newProduct.name">
+    </div>
+    <div>
+      <label for="description">Description: </label>
+    </div>
+    <div>
+      <input id="description" type="text" formControlName="description" [(ngModel)]="newProduct.description">
+    </div>
+    <div>
+      <label for="price">Price: </label>
+      <input id="price" type="number" formControlName="price" [(ngModel)]="newProduct.price">
+    </div>
+    <div>
+      <label for="count">Count: </label>
+      <input id="count" type="number" formControlName="count" [(ngModel)]="newProduct.count">
+    </div>
+    <div>
+      <button class="orange" (click)="cancel()">Cancel</button>
+      <button class="orange" (click)="save()">Save changes</button>
+    </div>
+  </form>
+</div>

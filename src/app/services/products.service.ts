@@ -16,13 +16,9 @@ export class ProductsService {
 
   selectedProduct!: Product;
   isEditable: boolean = false;
-  nextProduct: Product = {
-    id: NaN,
-    name: `New Product`,
-    description: '',
-    price: 0,
-    count: 0,
-  }
+
+  products$!: Observable<Product[]>;
+  productsData!: Product[];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,10 +26,12 @@ export class ProductsService {
     private router: Router,
   ) { }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl)
-    // const products = of(ProductsData)
-    // return products;
+  getProducts() {
+    // this.http.get<Product[]>(this.productsUrl).subscribe(prod => this.productsData = prod);
+    // return this.productsData;
+    this.products$ = this.http.get<Product[]>(this.productsUrl);
+    return this.products$;
+    // return this.products$;
   }
 
   getProduct(id: number): Observable<Product> {
@@ -46,7 +44,7 @@ export class ProductsService {
     // this.selectedProduct = {...this.nextProduct};
     // console.log(this.selectedProduct);
     // console.log(this.nextProduct);
-    this.router.navigate(['/details', NaN]);
+    // this.router.navigate(['/products', NaN]);
   }
 
   addProduct(product: Product): Observable<Product> {

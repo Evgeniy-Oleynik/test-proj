@@ -1,18 +1,18 @@
 import { NgModule } from "@angular/core";
 
-import { ProductDetailsComponent } from "./product-details.component";
-import { ProductDetailsRoutingModule } from "./product-details-routing.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../../shared/modules/shared.module";
 import { CoreModule } from "../../shared/modules/core.module";
+import { NewProductComponent } from "./new-product.component";
+import { NewProductRoutingModule } from "./new-product-routing.module";
 
 @NgModule({
   imports: [
-    ProductDetailsRoutingModule,
+    NewProductRoutingModule,
     // ReactiveFormsModule,
     SharedModule,
     CoreModule,
   ],
-  declarations: [ProductDetailsComponent]
+  declarations: [ NewProductComponent ]
 })
-export class ProductDetailsModule { }
+export class NewProductModule { }
