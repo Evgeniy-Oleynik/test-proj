@@ -18,6 +18,7 @@ export class ProductsService {
   isEditable: boolean = false;
 
   products$!: Observable<Product[]>;
+  selectedProduct$!: Observable<Product>;
   productsData!: Product[];
 
   constructor(
@@ -39,13 +40,13 @@ export class ProductsService {
     // return this.productsData[id];
   }
 
-  newProduct(): void {
+  // newProduct(): void {
     // this.selectedProduct = { id: NaN, name: `New Product`, description: '', price: 0, count: 0,}
     // this.selectedProduct = {...this.nextProduct};
     // console.log(this.selectedProduct);
     // console.log(this.nextProduct);
     // this.router.navigate(['/products', NaN]);
-  }
+  // }
 
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.productsUrl, product, this.httpOptions);

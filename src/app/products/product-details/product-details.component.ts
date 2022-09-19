@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from "@angular/common";
-import { FormBuilder } from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import { ProductsService } from "../../services/products.service";
 import {Product} from "../../interfaces/product-interface";
 import { ActivatedRoute } from "@angular/router";
