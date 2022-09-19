@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import { ProductsService } from "../../services/products.service";
 import {Product} from "../../interfaces/product-interface";
 import { ActivatedRoute } from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-product-details',
@@ -13,7 +14,7 @@ import { ActivatedRoute } from "@angular/router";
 export class ProductDetailsComponent implements OnInit {
 
   isEditable: boolean = false;
-  selectedProduct: Product = this.productsService.selectedProduct;
+  selectedProduct$!: Observable<Product>;
 
   constructor(
     private location: Location,
@@ -28,15 +29,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProduct(): void {
-    if (this.selectedProduct) {
-      this.productsService.getProduct(this.selectedProduct.id)
-        .subscribe();
-    }
-    else {
-      const id = parseInt(<string>this.activatedRoute.snapshot.paramMap.get('id'));
-      this.productsService.getProduct(id)
-        .subscribe(product => this.selectedProduct = product);
-    }
+    const id = parseInt(<string>this.activatedRoute.snapshot.paramMap.get('id'));
+    this.selectedProduct$ = this.productsService.getProduct(id);
   }
 
   toggleEdit() {
@@ -53,7 +47,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   save() {
-    this.productsService.updateProduct(this.selectedProduct).subscribe();
+    // this.productsService.updateProduct(this.selectedProduct$).subscribe();
     this.goBack();
   }
 

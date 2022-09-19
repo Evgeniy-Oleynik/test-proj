@@ -51,9 +51,8 @@ export class ProductsComponent implements OnInit {
     //   .reduce((acc, value) => acc + value, 0))
   ;
 
-  goDetails(product: Product): void {
-    this.productsService.selectedProduct = product;
-    this.router.navigate(['products/details', product.id]);
+  goDetails(id:number): void {
+    this.router.navigate(['products/details', id]);
   }
 
   deleteProduct(id: number): void {

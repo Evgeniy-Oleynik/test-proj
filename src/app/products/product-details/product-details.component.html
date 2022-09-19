@@ -6,42 +6,42 @@
   <h1>Product details</h1>
 </div>
 
-<app-product-editor></app-product-editor>
+<app-product-editor [selectedProduct$]="selectedProduct$"></app-product-editor>
 
-<div *ngIf="!selectedProduct">
-  <h1>Loading Data</h1>
-</div>
+<!--<div *ngIf="!selectedProduct">-->
+<!--  <h1>Loading Data</h1>-->
+<!--</div>-->
 
-<div *ngIf="selectedProduct" class="m20">
-  <form [formGroup]="productDetailsForm">
-        <div>
-          <label for="name">Name: </label>
-          <input id="name" type="text" formControlName="name"
-                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.name">
-        </div>
-        <div>
-          <label for="description">Description: </label>
-        </div>
-        <div>
-          <input id="description" type="text" formControlName="description"
-                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.description">
-        </div>
-        <div>
-          <label for="price">Price: </label>
-          <input id="price" type="number" formControlName="price"
-                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.price">
-        </div>
-        <div>
-          <label for="count">Count: </label>
-          <input id="count" type="number" formControlName="count"
-                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.count">
-        </div>
-        <div *ngIf="!isEditable">
-          <button class="orange" (click)="toggleEdit()">Edit</button>
-        </div>
-        <div *ngIf="isEditable">
-          <button class="orange" (click)="cancel()">Cancel</button>
-          <button class="orange" (click)="save()">Save changes</button>
-        </div>
-  </form>
-</div>
+<!--<div *ngIf="selectedProduct" class="m20">-->
+<!--  <form [formGroup]="productDetailsForm">-->
+<!--        <div>-->
+<!--          <label for="name">Name: </label>-->
+<!--          <input id="name" type="text" formControlName="name"-->
+<!--                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.name">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="description">Description: </label>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <input id="description" type="text" formControlName="description"-->
+<!--                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.description">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="price">Price: </label>-->
+<!--          <input id="price" type="number" formControlName="price"-->
+<!--                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.price">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="count">Count: </label>-->
+<!--          <input id="count" type="number" formControlName="count"-->
+<!--                 [readonly]="!isEditable" [(ngModel)]="selectedProduct.count">-->
+<!--        </div>-->
+<!--        <div *ngIf="!isEditable">-->
+<!--          <button class="orange" (click)="toggleEdit()">Edit</button>-->
+<!--        </div>-->
+<!--        <div *ngIf="isEditable">-->
+<!--          <button class="orange" (click)="cancel()">Cancel</button>-->
+<!--          <button class="orange" (click)="save()">Save changes</button>-->
+<!--        </div>-->
+<!--  </form>-->
+<!--</div>-->

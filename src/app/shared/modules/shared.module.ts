@@ -5,13 +5,11 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
 import { ReactiveFormsModule } from "@angular/forms";
-import {ProductEditorComponent} from "../../products/shared/product-editor/product-editor.component";
 
 
 
 @NgModule({
   declarations: [
-    ProductEditorComponent
   ],
   imports: [],
   exports: [
@@ -19,8 +17,7 @@ import {ProductEditorComponent} from "../../products/shared/product-editor/produ
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    ReactiveFormsModule,
-    ProductEditorComponent,
+    // ReactiveFormsModule,
   ],
 })
 export class SharedModule { }

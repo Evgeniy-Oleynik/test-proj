@@ -48,7 +48,7 @@
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let product">
-        <button (click)="goDetails(product)">
+        <button (click)="goDetails(product.id)">
           <mat-icon>arrow_right_alt</mat-icon>
         </button>
       </td>

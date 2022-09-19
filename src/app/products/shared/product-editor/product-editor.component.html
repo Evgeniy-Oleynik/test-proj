@@ -1,12 +1,20 @@
 <div>
   <form [formGroup]="productDetailsForm">
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="name">
-    <label for="description">Description: </label>
-    <input id="description" type="text" formControlName="description">
-    <label for="price">Price: </label>
-    <input id="price" type="number" formControlName="price">
-    <label for="count">Count: </label>
-    <input id="count" type="number" formControlName="count">
+    <div>
+      <label for="name">Name: </label>
+      <input id="name" type="text" formControlName="name">
+    </div>
+    <div>
+      <label for="description">Description: </label>
+      <input id="description" type="text" formControlName="description">
+    </div>
+    <div>
+      <label for="price">Price: </label>
+      <input id="price" type="number" formControlName="price">
+    </div>
+    <div>
+      <label for="count">Count: </label>
+      <input id="count" type="number" formControlName="count">
+    </div>
   </form>
 </div>
