@@ -6,7 +6,7 @@
   <h1>Product details</h1>
 </div>
 
-<app-product-editor ></app-product-editor>
+<app-product-editor [selectedProduct$]="newProduct$" [isEditable]="true" (editedProduct)="addProduct($event)"></app-product-editor>
 
 <!--<div class="m20">-->
 <!--  <form [formGroup]="newProductForm">-->

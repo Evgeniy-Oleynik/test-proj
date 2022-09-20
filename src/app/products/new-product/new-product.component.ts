@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from "@angular/common";
-import { FormBuilder } from "@angular/forms";
 import { ProductsService } from "../../services/products.service";
 import {Product} from "../../interfaces/product-interface";
 import { ActivatedRoute } from "@angular/router";
+import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-new-product',
@@ -12,17 +13,18 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class NewProductComponent implements OnInit {
 
-  newProduct: Product = {
-    id: NaN,
-    name: '',
-    description: '',
-    price: NaN,
-    count: NaN,
-  };
+  newProduct$ = new Observable<Product>(product => {
+    product.next({
+      id: NaN,
+      name: '',
+      description: '',
+      price: NaN,
+      count: NaN
+    });
+    });
 
   constructor(
     private location: Location,
-    private formBuilder: FormBuilder,
     private productsService: ProductsService,
     private activatedRoute: ActivatedRoute,
   ) { }
@@ -34,21 +36,10 @@ export class NewProductComponent implements OnInit {
     this.location.back();
   }
 
-  cancel() {
-    window.location.reload();
-  }
-
-  save() {
-    this.productsService.addProduct(this.newProduct).subscribe();
+  addProduct(newProduct: Product) {
+    this.productsService.addProduct(newProduct).subscribe();
     this.goBack();
+    alert(`${newProduct.name} added`);
   }
-
-  newProductForm = this.formBuilder.group({
-    name: '',
-    description: '',
-    price: '',
-    count: '',
-  });
-
 
 }

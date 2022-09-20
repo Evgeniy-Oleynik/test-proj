@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterStateSnapshot, ActivatedRoute } from "@angular/router";
 import { Product } from "../interfaces/product-interface";
-import { Observable } from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -55,12 +55,12 @@ export class ProductsService {
 
   updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(this.productsUrl, product, this.httpOptions);
-    // ProductsData.push(product);
   }
 
-  deleteProduct(id: number): Observable<Product> {
-    return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions);
-    // ProductsData.splice(product.id - 1, 1);
+  deleteProduct(id: number): Observable<any> {
+    // return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions);
+    return this.products$.pipe(
+      map(products => products.splice(id, 1)));
   }
 
 }

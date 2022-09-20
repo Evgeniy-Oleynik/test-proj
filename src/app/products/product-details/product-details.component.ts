@@ -15,6 +15,7 @@ export class ProductDetailsComponent implements OnInit {
 
   isEditable: boolean = false;
   selectedProduct$!: Observable<Product>;
+  editedProduct!: Product;
 
   constructor(
     private location: Location,
@@ -33,31 +34,14 @@ export class ProductDetailsComponent implements OnInit {
     this.selectedProduct$ = this.productsService.getProduct(id);
   }
 
-  toggleEdit() {
-    // this.productsService.toggleEdit();
-    this.isEditable = !this.isEditable;
-  }
-
   goBack() {
     this.location.back();
   }
 
-  cancel() {
-    window.location.reload();
-  }
-
-  save() {
-    // this.productsService.updateProduct(this.selectedProduct$).subscribe();
+  updateProduct(editedProduct: Product) {
+    this.productsService.updateProduct(editedProduct).subscribe();
     this.goBack();
+    alert(`${editedProduct.name} updated`);
   }
-
-
-  productDetailsForm = this.formBuilder.group({
-    name: '',
-    description: '',
-    price: '',
-    count: '',
-  });
-
 
 }

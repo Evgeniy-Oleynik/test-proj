@@ -2,7 +2,7 @@ import {Component, OnInit } from '@angular/core';
 import { Product } from "../interfaces/product-interface";
 import { ProductsService } from "../services/products.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import {map, Observable} from "rxjs";
+import {map, Observable, Subscription, tap} from "rxjs";
 
 @Component({
   selector: 'app-products',
@@ -14,6 +14,8 @@ export class ProductsComponent implements OnInit {
   productsData!: Product[];
   products$: Observable<Product[] | any> = this.productsService.products$;
   totalSum!: number;
+
+  totalSumSubscription!: Subscription;
 
   displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total', 'delete', 'details'];
   displayedFooter: string[] = ['totalSum1', 'totalSum2'];
@@ -31,6 +33,10 @@ export class ProductsComponent implements OnInit {
     // console.log(this.productsData);
   }
 
+  ngOnDestroy(): void {
+    this.totalSumSubscription.unsubscribe();
+  }
+
   // getProducts() {
   //   this.productsData = this.productsService.getProducts();
   //   // this.productsService.getProducts()
@@ -38,7 +44,7 @@ export class ProductsComponent implements OnInit {
   // }
 
   getTotalSum() {
-    this.products$.subscribe(products => this.totalSum = products
+    this.totalSumSubscription = this.products$.subscribe(products => this.totalSum = products
       .map((product: any) => product.price * product.count)
       .reduce((acc: number, val: number) => acc + val, 0))
     return this.totalSum;
@@ -55,8 +61,16 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['products/details', id]);
   }
 
-  deleteProduct(id: number): void {
-    this.productsService.deleteProduct(id).subscribe();
+  deleteProduct(id: number): Observable<any> {
+    return this.products$.pipe(
+      tap(prod => console.log(prod)),
+      map(products => {
+        console.log(products);
+        products.splice(id, 1);
+        console.log(products);
+      })
+    );
+    // this.productsService.deleteProduct(id).subscribe();
     // this.getProducts();
   }
 

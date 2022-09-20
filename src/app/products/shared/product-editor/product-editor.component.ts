@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {map, Observable} from "rxjs";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {map, Observable, Subscription} from "rxjs";
 import {Product} from "../../../interfaces/product-interface";
 import {ProductsService} from "../../../services/products.service";
 
@@ -11,28 +11,47 @@ import {ProductsService} from "../../../services/products.service";
 })
 export class ProductEditorComponent implements OnInit {
 
-  isEditable: boolean = true;
-  selectedProduct!: Product;
+  productSubscription!: Subscription;
+  // isEditable: boolean = true;
+
+  productDetailsForm = new FormGroup({
+    id: new FormControl(NaN),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    price: new FormControl(NaN,[Validators.required, Validators.min(0)]),
+    count: new FormControl(NaN,[Validators.required, Validators.min(0)]),
+  })
+
+  resetProduct!: Product;
   @Input() selectedProduct$!: Observable<Product>;
+  @Input() isEditable!: boolean;
+  @Output() editedProduct = new EventEmitter<any>();
 
   constructor(
     private productsService: ProductsService,
   ) { }
 
   ngOnInit(): void {
-    this.getSelectedProduct();
+    this.productSubscription = this.selectedProduct$.subscribe(prod => {
+      this.productDetailsForm.setValue(prod);
+      this.resetProduct = prod;
+    })
   }
 
-  getSelectedProduct() {
-    this.selectedProduct$.subscribe(prod => this.selectedProduct = prod);
-    console.log(this.selectedProduct);
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
   }
 
-  productDetailsForm = new FormGroup({
-    name: new FormControl({value: '', disabled: !this.isEditable}),
-    description: new FormControl({value: '', disabled: !this.isEditable}),
-    price: new FormControl({value: '', disabled: !this.isEditable}),
-    count: new FormControl({value: '', disabled: !this.isEditable}),
-  })
+  toggleEdit() {
+    this.isEditable = true;
+  }
 
+  onSubmit() {
+    this.editedProduct.emit(this.productDetailsForm.value);
+  }
+
+  onCancel() {
+    this.productDetailsForm.setValue(this.resetProduct);
+    this.isEditable = false;
+  }
 }

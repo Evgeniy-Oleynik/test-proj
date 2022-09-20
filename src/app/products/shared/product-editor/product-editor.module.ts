@@ -7,6 +7,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 @NgModule({
   imports: [
     ReactiveFormsModule,
+    SharedModule,
+    CoreModule,
   ],
   exports: [
     ProductEditorComponent

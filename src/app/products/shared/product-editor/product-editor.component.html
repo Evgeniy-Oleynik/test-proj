@@ -1,20 +1,27 @@
 <div>
-  <form [formGroup]="productDetailsForm">
+  <form [formGroup]="productDetailsForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="name">Name: </label>
-      <input id="name" type="text" formControlName="name">
+      <input id="name" type="text" formControlName="name" [readonly]="!isEditable">
     </div>
     <div>
       <label for="description">Description: </label>
-      <input id="description" type="text" formControlName="description">
+      <input id="description" type="text" formControlName="description" [readonly]="!isEditable">
     </div>
     <div>
       <label for="price">Price: </label>
-      <input id="price" type="number" formControlName="price">
+      <input id="price" type="number" formControlName="price" [readonly]="!isEditable">
     </div>
     <div>
       <label for="count">Count: </label>
-      <input id="count" type="number" formControlName="count">
+      <input id="count" type="number" formControlName="count" [readonly]="!isEditable">
+    </div>
+    <div *ngIf="!isEditable">
+      <button class="orange" (click)="toggleEdit()">Edit</button>
+    </div>
+    <div *ngIf="isEditable">
+      <button class="orange" (click)="onCancel()">Cancel</button>
+      <button class="orange" type="submit">Save changes</button>
     </div>
   </form>
 </div>
