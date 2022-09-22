@@ -13,9 +13,9 @@ export class ProductsComponent implements OnInit {
 
   productsData!: Product[];
   products$: Observable<Product[] | any> = this.productsService.products$;
-  totalSum!: number;
-
-  totalSumSubscription!: Subscription;
+  totalSum$: Observable<number | any> = this.products$.pipe(
+    map(products => products
+      .reduce((acc: number, product: Product) => acc + product.price * product.count, 0)));
 
   displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total', 'delete', 'details'];
   displayedFooter: string[] = ['totalSum1', 'totalSum2'];
@@ -34,43 +34,14 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.totalSumSubscription.unsubscribe();
   }
-
-  // getProducts() {
-  //   this.productsData = this.productsService.getProducts();
-  //   // this.productsService.getProducts()
-  //   //   .subscribe(products => this.productsData = products);
-  // }
-
-  getTotalSum() {
-    this.totalSumSubscription = this.products$.subscribe(products => this.totalSum = products
-      .map((product: any) => product.price * product.count)
-      .reduce((acc: number, val: number) => acc + val, 0))
-    return this.totalSum;
-  }
-
-  // totalSum = this.products$.subscribe(products => products
-  //   .map((product: any) => product.price * product.count)
-  //   .reduce((acc: number, val: number) => acc + val, 0))
-    // map(p => p.map(obj => obj.price * obj.count)
-    //   .reduce((acc, value) => acc + value, 0))
-  ;
 
   goDetails(id:number): void {
     this.router.navigate(['products/details', id]);
   }
 
-  deleteProduct(id: number): Observable<any> {
-    return this.products$.pipe(
-      tap(prod => console.log(prod)),
-      map(products => {
-        console.log(products);
-        products.splice(id, 1);
-        console.log(products);
-      })
-    );
-    // this.productsService.deleteProduct(id).subscribe();
+  deleteProduct(id: number): void {
+    this.productsService.deleteProduct(id).subscribe();
     // this.getProducts();
   }
 

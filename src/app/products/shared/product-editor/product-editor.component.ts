@@ -17,10 +17,19 @@ export class ProductEditorComponent implements OnInit {
   productDetailsForm = new FormGroup({
     id: new FormControl(NaN),
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    description: new FormControl('', [Validators.minLength(5)]),
     price: new FormControl(NaN,[Validators.required, Validators.min(0)]),
     count: new FormControl(NaN,[Validators.required, Validators.min(0)]),
   })
+
+  getErrorMessage() {
+    if (this.productDetailsForm.hasError('required')) {
+      return 'You must enter a value';
+    }
+    return this.productDetailsForm.hasError('minLength') ? '3' : '';
+  }
+
+
 
   resetProduct!: Product;
   @Input() selectedProduct$!: Observable<Product>;

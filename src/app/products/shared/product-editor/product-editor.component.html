@@ -1,27 +1,40 @@
-<div>
+<div class="m20h p20h">
   <form [formGroup]="productDetailsForm" (ngSubmit)="onSubmit()">
     <div>
-      <label for="name">Name: </label>
-      <input id="name" type="text" formControlName="name" [readonly]="!isEditable">
+      <mat-form-field appearance="fill">
+        <mat-label for="name">Name: </mat-label>
+        <input matInput id="name" type="text" formControlName="name" [readonly]="!isEditable" required>
+        <mat-error *ngIf="productDetailsForm.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
     </div>
     <div>
-      <label for="description">Description: </label>
-      <input id="description" type="text" formControlName="description" [readonly]="!isEditable">
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label for="description">Description: </mat-label>
+        <textarea matInput id="description" type="text" formControlName="description" [readonly]="!isEditable" required></textarea>
+      </mat-form-field>
+      </div>
     <div>
-      <label for="price">Price: </label>
-      <input id="price" type="number" formControlName="price" [readonly]="!isEditable">
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label for="price">Price: </mat-label>
+        <input matInput id="price" type="number" formControlName="price" [readonly]="!isEditable" required>
+      </mat-form-field>
+      </div>
     <div>
-      <label for="count">Count: </label>
-      <input id="count" type="number" formControlName="count" [readonly]="!isEditable">
+      <mat-form-field appearance="fill">
+        <mat-label for="count">Count: </mat-label>
+        <input matInput id="count" type="number" formControlName="count" [readonly]="!isEditable" required>
+      </mat-form-field>
+      </div>
+    <div>
+      <p>* - required fields</p>
     </div>
     <div *ngIf="!isEditable">
       <button class="orange" (click)="toggleEdit()">Edit</button>
     </div>
     <div *ngIf="isEditable">
       <button class="orange" (click)="onCancel()">Cancel</button>
-      <button class="orange" type="submit">Save changes</button>
+      <button class="orange" type="submit" [disabled]="">Save changes</button>
     </div>
   </form>
 </div>
+

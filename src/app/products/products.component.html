@@ -58,7 +58,7 @@
       <td mat-footer-cell *matFooterCellDef colspan="6">Total:</td>
     </ng-container>
     <ng-container matColumnDef="totalSum2">
-      <td mat-footer-cell *matFooterCellDef style="text-align: center">{{getTotalSum()}}$</td>
+      <td mat-footer-cell *matFooterCellDef style="text-align: center">{{totalSum$ | async}}$</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -58,9 +58,9 @@ export class ProductsService {
   }
 
   deleteProduct(id: number): Observable<any> {
-    // return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions);
-    return this.products$.pipe(
-      map(products => products.splice(id, 1)));
+    return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions);
+    // return this.products$.pipe(
+    //   map(products => products.splice(id, 1)));
   }
 
 }
