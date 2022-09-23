@@ -1,39 +1,39 @@
 <div class="m20h p20h">
   <form [formGroup]="productDetailsForm" (ngSubmit)="onSubmit()">
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label for="name">Name: </mat-label>
-        <input matInput id="name" type="text" formControlName="name" [readonly]="!isEditable" required>
-        <mat-error *ngIf="productDetailsForm.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput id="name" type="text" formControlName="name" [readonly]="!isEditable">
+        <mat-error>Name should be at least 3 symbols</mat-error>
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label for="description">Description: </mat-label>
-        <textarea matInput id="description" type="text" formControlName="description" [readonly]="!isEditable" required></textarea>
+        <textarea matInput id="description" type="text" formControlName="description" [readonly]="!isEditable"></textarea>
+        <mat-error>Description should be at least 5 symbols</mat-error>
       </mat-form-field>
       </div>
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label for="price">Price: </mat-label>
-        <input matInput id="price" type="number" formControlName="price" [readonly]="!isEditable" required>
+        <input matInput id="price" type="number" formControlName="price" [readonly]="!isEditable">
+        <mat-error>Price should be >0</mat-error>
       </mat-form-field>
       </div>
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="outline">
         <mat-label for="count">Count: </mat-label>
-        <input matInput id="count" type="number" formControlName="count" [readonly]="!isEditable" required>
+        <input matInput id="count" type="number" formControlName="count" [readonly]="!isEditable">
+        <mat-error>Count should be >0</mat-error>
       </mat-form-field>
       </div>
-    <div>
-      <p>* - required fields</p>
-    </div>
     <div *ngIf="!isEditable">
       <button class="orange" (click)="toggleEdit()">Edit</button>
     </div>
     <div *ngIf="isEditable">
       <button class="orange" (click)="onCancel()">Cancel</button>
-      <button class="orange" type="submit" [disabled]="">Save changes</button>
+      <button class="orange" type="submit" [disabled]="productDetailsForm.invalid">Save changes</button>
     </div>
   </form>
 </div>

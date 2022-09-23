@@ -1,9 +1,12 @@
 @import "../../../shared/styles/shared";
 
 form {
+  width: 50%;
+
   mat-form-field {
-    width: 50%;
+    width: 100%;
   }
+
   mat-label {
     font-family: 'Inter';
     font-style: normal;
@@ -11,6 +14,7 @@ form {
     font-size: 24px;
     padding: 10px;
   }
+
   input, textarea {
     font-family: 'Inter';
     font-style: normal;
@@ -18,9 +22,10 @@ form {
     font-size: 24px;
     padding: 10px;
     border-radius: 10px;
+    width: 95%;
 
     &:read-only {
-      background: #D9D9D9;
+      background: lightgrey;
     }
   }
 }

@@ -42,6 +42,7 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(id: number): void {
     this.productsService.deleteProduct(id).subscribe();
+    this.productsService.products$.next();
     // this.getProducts();
   }
 

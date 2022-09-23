@@ -17,9 +17,9 @@ export class ProductEditorComponent implements OnInit {
   productDetailsForm = new FormGroup({
     id: new FormControl(NaN),
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    description: new FormControl('', [Validators.minLength(5)]),
-    price: new FormControl(NaN,[Validators.required, Validators.min(0)]),
-    count: new FormControl(NaN,[Validators.required, Validators.min(0)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    price: new FormControl(NaN,[Validators.required, Validators.min(0.01), Validators.requiredTrue]),
+    count: new FormControl(NaN,[Validators.required, Validators.min(0.01), Validators.requiredTrue]),
   })
 
   getErrorMessage() {

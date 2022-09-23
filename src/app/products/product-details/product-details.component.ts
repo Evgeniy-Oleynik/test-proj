@@ -13,7 +13,7 @@ import {Observable} from "rxjs";
 })
 export class ProductDetailsComponent implements OnInit {
 
-  isEditable: boolean = false;
+  // isEditable: boolean = false;
   selectedProduct$!: Observable<Product>;
   editedProduct!: Product;
 

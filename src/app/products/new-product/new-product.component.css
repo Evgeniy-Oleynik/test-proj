@@ -55,6 +55,9 @@ button.orange {
   border-radius: 10px;
   color: white;
 }
+button:disabled {
+  background: darkgray;
+}
 
 mat-icon {
   transform: scale(2);
