@@ -3,9 +3,9 @@ import { Product } from "../interfaces/product-interface";
 import { ProductsService } from "../services/products.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
-  BehaviorSubject,
+  BehaviorSubject, combineLatest, first, forkJoin,
   map,
-  Observable,
+  Observable, of, shareReplay,
   startWith,
   Subject,
   Subscription,
@@ -24,13 +24,16 @@ export class ProductsComponent implements OnInit {
 
   productsData!: Product[];
   allProducts$: Observable<Product[] | any> = this.productsService.products$;
-  products$!: Observable<Product[] | any>;
+  products$: Observable<Product[] | any> = this.productsService.products$;
+  productsSubject$: Subject<Product[]> = new Subject<Product[]>();
   deletedProductSubject$: Subject<number> = new Subject<number>();
-  totalSum$!: Observable<number | any>;
+  clickDeleteProductSubject$: Subject<void> = new Subject<void>();
+  deletedIds: number[] = [];
+  productsSubscription$!: Subscription;
 
+  totalSum$!: Observable<number | any>;
   displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total', 'delete', 'details'];
   displayedFooter: string[] = ['totalSum1', 'totalSum2'];
-  private clickDeleteProductSubject$: Subject<number> = new Subject<number>();
 
   constructor(
     private productsService: ProductsService,
@@ -38,25 +41,25 @@ export class ProductsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) { }
 
+
   ngOnInit(): void {
 
-    this.products$ = this.allProducts$;
+    // this.products$ = this.clickDeleteProductSubject$.pipe(
+    //   withLatestFrom(this.allProducts$),
+    //   map(([_,prods]) => {
+    //     prods.filter((prod: Product) => !this.deletedIds.includes(prod.id));
+    //   })
+    // );
 
-    // this.products$.pipe(
-    //   withLatestFrom(this.clickDeleteProductSubject$),
-    //   map(() => {return []})
-    // )
-
-    this.products$.subscribe(res => console.log(res))
-
-    this.clickDeleteProductSubject$.pipe(
-      withLatestFrom(this.deletedProductsSubject$),
-    ).subscribe(([id, ids]) => {
-      this.deletedProductsSubject$.next([...ids, id]);
-    })
-
-    // this.allProducts$.subscribe(res => {
-    //   console.log(res);})
+    this.productsSubscription$ = this.clickDeleteProductSubject$.pipe(
+      withLatestFrom(this.allProducts$),
+      map(([_,prods]) => {
+        this.products$ = of(prods.filter((prod: Product) => !this.deletedIds.includes(prod.id)));
+        this.totalSum$ = this.products$.pipe(
+          map(products => products
+            .reduce((acc: number, product: Product) => acc + product.price * product.count, 0)));
+      })
+    ).subscribe()
 
 
     // this.products$ = this.deletedProductsSubject$.pipe(
@@ -80,6 +83,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.productsSubscription$.unsubscribe();
   }
 
   goDetails(id:number): void {
@@ -88,8 +92,8 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(id: number): void {
     this.productsService.deleteProduct(id).subscribe();
-    // this.products$ = this.productsService.products$.pi;
-    this.clickDeleteProductSubject$.next(id);
+    this.clickDeleteProductSubject$.next();
+    this.deletedIds = [...this.deletedIds, id];
   }
 
   newProduct(): void {
