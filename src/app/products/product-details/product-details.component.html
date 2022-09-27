@@ -6,7 +6,7 @@
   <h1>Product details</h1>
 </div>
 
-<app-product-editor [selectedProduct$]="selectedProduct$" (editedProduct)="updateProduct($event)" [isEditable]="false"></app-product-editor>
+<app-product-editor [selectedProduct]="selectedProduct$ | async" (editedProduct)="updateProduct($event)" [isEditable]="false"></app-product-editor>
 
 <!--<div *ngIf="!selectedProduct">-->
 <!--  <h1>Loading Data</h1>-->

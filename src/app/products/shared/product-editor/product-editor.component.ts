@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {map, Observable, Subscription} from "rxjs";
+import {filter, map, Observable, startWith, Subject, Subscription, tap, withLatestFrom} from "rxjs";
 import {Product} from "../../../interfaces/product-interface";
 import {ProductsService} from "../../../services/products.service";
+
 
 @Component({
   selector: 'app-product-editor',
@@ -10,57 +11,69 @@ import {ProductsService} from "../../../services/products.service";
   styleUrls: ['./product-editor.component.scss']
 })
 export class ProductEditorComponent implements OnInit {
+  @Input() set selectedProduct(value: Product | null) {
+    if (value) {
+      this.selectedProductSubject$.next(value);
+    }
+  }
+
+  @Input() isEditable = false;
+  @Output() editedProduct = new EventEmitter<any>();
 
   productSubscription!: Subscription;
-  // isEditable: boolean = true;
+  private selectedProductSubject$: Subject<Product> = new Subject<Product>();
+  private resetFormSubject$: Subject<void> = new Subject<void>();
 
-  productDetailsForm = new FormGroup({
+  productDetailsForm = new FormGroup<any>({
     id: new FormControl(NaN),
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     description: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    price: new FormControl(NaN,[Validators.required, Validators.min(0.01), Validators.requiredTrue]),
-    count: new FormControl(NaN,[Validators.required, Validators.min(0.01), Validators.requiredTrue]),
+    price: new FormControl(NaN || null, [Validators.required, Validators.min(0.01)]),
+    count: new FormControl(NaN || null, [Validators.required, Validators.min(0.01)]),
   })
-
-  getErrorMessage() {
-    if (this.productDetailsForm.hasError('required')) {
-      return 'You must enter a value';
-    }
-    return this.productDetailsForm.hasError('minLength') ? '3' : '';
-  }
-
-
-
-  resetProduct!: Product;
-  @Input() selectedProduct$!: Observable<Product>;
-  @Input() isEditable!: boolean;
-  @Output() editedProduct = new EventEmitter<any>();
 
   constructor(
     private productsService: ProductsService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.productSubscription = this.selectedProduct$.subscribe(prod => {
-      this.productDetailsForm.setValue(prod);
-      this.resetProduct = prod;
-    })
+    this.selectedProductSubject$.subscribe(data => {
+        this.productDetailsForm.patchValue(data);
+        this.productDetailsForm.disable();
+      }
+    )
+
+    this.resetFormSubject$.pipe(
+      tap(val => console.log(1, val)),
+
+      withLatestFrom(this.selectedProductSubject$),
+      tap(val => console.log(2, val)),
+    ).subscribe(([, formData]) => {
+      console.log(formData);
+      this.productDetailsForm.reset(formData);
+      this.productDetailsForm.disable();
+      this.isEditable = false;
+    });
   }
 
   ngOnDestroy(): void {
-    this.productSubscription.unsubscribe();
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
   }
 
   toggleEdit() {
     this.isEditable = true;
+    this.productDetailsForm.enable();
   }
 
   onSubmit() {
+    debugger
     this.editedProduct.emit(this.productDetailsForm.value);
   }
 
   onCancel() {
-    this.productDetailsForm.setValue(this.resetProduct);
-    this.isEditable = false;
+    this.resetFormSubject$.next();
   }
 }

@@ -1,30 +1,30 @@
 <div class="m20h p20h">
-  <form [formGroup]="productDetailsForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="productDetailsForm">
     <div>
       <mat-form-field appearance="outline">
         <mat-label for="name">Name: </mat-label>
-        <input matInput id="name" type="text" formControlName="name" [readonly]="!isEditable">
+        <input matInput id="name" type="text" formControlName="name">
         <mat-error>Name should be at least 3 symbols</mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="outline">
         <mat-label for="description">Description: </mat-label>
-        <textarea matInput id="description" type="text" formControlName="description" [readonly]="!isEditable"></textarea>
+        <textarea matInput id="description" type="text" formControlName="description"></textarea>
         <mat-error>Description should be at least 5 symbols</mat-error>
       </mat-form-field>
       </div>
     <div>
       <mat-form-field appearance="outline">
         <mat-label for="price">Price: </mat-label>
-        <input matInput id="price" type="number" formControlName="price" [readonly]="!isEditable">
+        <input matInput id="price" type="number" formControlName="price">
         <mat-error>Price should be >0</mat-error>
       </mat-form-field>
       </div>
     <div>
       <mat-form-field appearance="outline">
         <mat-label for="count">Count: </mat-label>
-        <input matInput id="count" type="number" formControlName="count" [readonly]="!isEditable">
+        <input matInput id="count" type="number" formControlName="count">
         <mat-error>Count should be >0</mat-error>
       </mat-form-field>
       </div>
@@ -33,7 +33,7 @@
     </div>
     <div *ngIf="isEditable">
       <button class="orange" (click)="onCancel()">Cancel</button>
-      <button class="orange" type="submit" [disabled]="productDetailsForm.invalid">Save changes</button>
+      <button class="orange" (click)="onSubmit()" [disabled]="productDetailsForm.invalid">Save changes</button>
     </div>
   </form>
 </div>

@@ -13,15 +13,15 @@ import {Observable} from "rxjs";
 })
 export class NewProductComponent implements OnInit {
 
-  newProduct$ = new Observable<Product>(product => {
-    product.next({
-      id: NaN,
-      name: '',
-      description: '',
-      price: NaN,
-      count: NaN
-    });
-    });
+  // newProduct$ = new Observable<Product>(product => {
+  //   product.next({
+  //     id: NaN,
+  //     name: '',
+  //     description: '',
+  //     price: NaN,
+  //     count: NaN
+  //   });
+  //   });
 
   constructor(
     private location: Location,

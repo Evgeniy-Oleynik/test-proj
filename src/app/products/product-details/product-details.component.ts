@@ -32,6 +32,7 @@ export class ProductDetailsComponent implements OnInit {
   getProduct(): void {
     const id = parseInt(<string>this.activatedRoute.snapshot.paramMap.get('id'));
     this.selectedProduct$ = this.productsService.getProduct(id);
+    console.log(this.selectedProduct$);
   }
 
   goBack() {

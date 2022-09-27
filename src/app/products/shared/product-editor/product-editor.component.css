@@ -142,8 +142,5 @@ form input, form textarea {
   border-radius: 10px;
   width: 95%;
 }
-form input:read-only, form textarea:read-only {
-  background: lightgrey;
-}
 
 /*# sourceMappingURL=product-editor.component.css.map */

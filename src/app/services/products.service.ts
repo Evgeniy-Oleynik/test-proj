@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterStateSnapshot, ActivatedRoute } from "@angular/router";
 import { Product } from "../interfaces/product-interface";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable, shareReplay} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ProductsService {
   selectedProduct!: Product;
   isEditable: boolean = false;
 
-  products$!: any;
+  products$!: Observable<Product[] | any>;
   selectedProduct$!: Observable<Product>;
   productsData!: Product[];
 
@@ -31,7 +31,7 @@ export class ProductsService {
     // this.http.get<Product[]>(this.productsUrl).subscribe(prod => this.productsData = prod);
     // return this.productsData;
     // this.products$ = this.http.get<Product[]>(this.productsUrl);
-    this.products$ = new BehaviorSubject(this.http.get<Product[]>(this.productsUrl));
+    this.products$ = this.http.get<Product[]>(this.productsUrl);
     return this.products$;
     // return this.products$;
   }
