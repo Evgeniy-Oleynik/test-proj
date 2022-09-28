@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterStateSnapshot, ActivatedRoute } from "@angular/router";
 import { Product } from "../interfaces/product-interface";
-import {BehaviorSubject, map, Observable, shareReplay} from "rxjs";
+import {BehaviorSubject, map, Observable, shareReplay, tap} from "rxjs";
+import {combineLatest} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,41 @@ export class ProductsService {
   selectedProduct$!: Observable<Product>;
   productsData!: Product[];
 
+  allProducts$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  deletedProductId$: BehaviorSubject<number> = new BehaviorSubject<number>(NaN);
+  deletedIds: number[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-  ) { }
+  ) {
+    this.products$ = combineLatest([
+      this.allProducts$,
+      this.deletedProductId$,
+    ]).pipe(
+      // tap((res) => console.log(1111)),
+      map(([products, id]) => {
+        if (!id) {
+          return products;
+        } else {
+          this.deletedIds = [...this.deletedIds, id];
+          return products.filter((prod) => !this.deletedIds.includes(prod.id));
+        }
+      })
+    )
+  }
 
   getProducts() {
     // this.http.get<Product[]>(this.productsUrl).subscribe(prod => this.productsData = prod);
     // return this.productsData;
     // this.products$ = this.http.get<Product[]>(this.productsUrl);
-    this.products$ = this.http.get<Product[]>(this.productsUrl);
+    this.http.get<Product[]>(this.productsUrl).subscribe(
+      (res) => {
+        this.allProducts$.next(res);
+      },
+      (err) => console.log(err));
     return this.products$;
-    // return this.products$;
   }
 
   getProduct(id: number): Observable<Product> {
@@ -58,8 +81,10 @@ export class ProductsService {
     return this.http.put<Product>(this.productsUrl, product, this.httpOptions);
   }
 
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions);
+  deleteProduct(id: number) {
+    this.http.delete<Product>(`${this.productsUrl}/${id}`, this.httpOptions).subscribe(
+      () => this.deletedProductId$.next(id)
+    );
     // return this.products$.pipe(
     //   map(products => products.splice(id, 1)));
   }

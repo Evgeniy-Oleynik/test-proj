@@ -45,12 +45,9 @@ export class ProductEditorComponent implements OnInit {
     )
 
     this.resetFormSubject$.pipe(
-      tap(val => console.log(1, val)),
-
       withLatestFrom(this.selectedProductSubject$),
       tap(val => console.log(2, val)),
     ).subscribe(([, formData]) => {
-      console.log(formData);
       this.productDetailsForm.reset(formData);
       this.productDetailsForm.disable();
       this.isEditable = false;

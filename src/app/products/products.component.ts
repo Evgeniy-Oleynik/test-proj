@@ -25,11 +25,11 @@ export class ProductsComponent implements OnInit {
   productsData!: Product[];
   allProducts$: Observable<Product[] | any> = this.productsService.products$;
   products$: Observable<Product[] | any> = this.productsService.products$;
-  productsSubject$: Subject<Product[]> = new Subject<Product[]>();
+  // productsSubject$: Subject<Product[]> = new Subject<Product[]>();
   deletedProductSubject$: Subject<number> = new Subject<number>();
   clickDeleteProductSubject$: Subject<void> = new Subject<void>();
   deletedIds: number[] = [];
-  productsSubscription$!: Subscription;
+  productsSubscription!: Subscription;
 
   totalSum$!: Observable<number | any>;
   displayedColumns: string[] = ['name', 'description', 'price', 'count', 'total', 'delete', 'details'];
@@ -38,7 +38,6 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
   ) { }
 
 
@@ -51,15 +50,18 @@ export class ProductsComponent implements OnInit {
     //   })
     // );
 
-    this.productsSubscription$ = this.clickDeleteProductSubject$.pipe(
-      withLatestFrom(this.allProducts$),
-      map(([_,prods]) => {
-        this.products$ = of(prods.filter((prod: Product) => !this.deletedIds.includes(prod.id)));
-        this.totalSum$ = this.products$.pipe(
-          map(products => products
-            .reduce((acc: number, product: Product) => acc + product.price * product.count, 0)));
-      })
-    ).subscribe()
+    // this.productsSubscription$ = this.clickDeleteProductSubject$.pipe(
+
+      // tap(() => {console.log(111)}),
+      // withLatestFrom(this.allProducts$),
+      // map(([_,prods]) => {
+      //   console.log(222);
+        // this.products$ = of(prods.filter((prod: Product) => !this.deletedIds.includes(prod.id)));
+        // this.totalSum$ = this.products$.pipe(
+        //   map(products => products
+        //     .reduce((acc: number, product: Product) => acc + product.price * product.count, 0)));
+      // })
+    // ).subscribe()
 
 
     // this.products$ = this.deletedProductsSubject$.pipe(
@@ -83,7 +85,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.productsSubscription$.unsubscribe();
+    // this.productsSubscription$.unsubscribe();
   }
 
   goDetails(id:number): void {
@@ -91,9 +93,9 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number): void {
-    this.productsService.deleteProduct(id).subscribe();
-    this.clickDeleteProductSubject$.next();
-    this.deletedIds = [...this.deletedIds, id];
+    this.productsService.deleteProduct(id);
+    // this.clickDeleteProductSubject$.next();
+    // this.deletedIds = [...this.deletedIds, id];
   }
 
   newProduct(): void {
