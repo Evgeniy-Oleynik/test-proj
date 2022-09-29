@@ -5,6 +5,7 @@ import { Product } from "../interfaces/product-interface";
 import {BehaviorSubject, map, Observable, shareReplay, tap} from "rxjs";
 import {combineLatest} from "rxjs";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,7 @@ export class ProductsService {
   productsData!: Product[];
 
   allProducts$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
-  deletedProductId$: BehaviorSubject<number> = new BehaviorSubject<number>(NaN);
+  deletedProductId$: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
   deletedIds: number[] = [];
 
   constructor(

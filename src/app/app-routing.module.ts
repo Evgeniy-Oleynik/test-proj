@@ -5,6 +5,7 @@ import { WelcomeComponent } from "./welcome/welcome.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 import { ProductsResolverService } from "./products/products-resolver.service";
+import {TestComponent} from "./test/test.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
     path:'products',
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
+  {path:'test', component: TestComponent},
   {path:'**', component: PageNotFoundComponent},
 ];
 

@@ -2,18 +2,10 @@ import {Component, OnInit } from '@angular/core';
 import { Product } from "../interfaces/product-interface";
 import { ProductsService } from "../services/products.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import {
-  BehaviorSubject, combineLatest, first, forkJoin,
-  map,
-  Observable, of, shareReplay,
-  startWith,
-  Subject,
-  Subscription,
-  switchMap,
-  take,
-  tap,
-  withLatestFrom
-} from "rxjs";
+import { map, Observable, Subject, Subscription } from "rxjs";
+
+import { Store } from "@ngxs/store";
+import {GetProducts} from "../shared/states/products.actions";
 
 @Component({
   selector: 'app-products',
@@ -38,8 +30,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
+    private store: Store,
   ) { }
 
+  getProducts() {
+
+  }
 
   ngOnInit(): void {
 
